@@ -42,6 +42,8 @@ python src/main.py
 python src/grid_search.py
 ```
 
+3. Para tratar os resultados, rode as células do jupyter notebook `notebooks/post_processing.ipynb`.
+
 # Visualização dos resultados
 
 Após rodar os algoritmos, são gerados dois arquivos na pasta `data`:
@@ -49,3 +51,23 @@ Após rodar os algoritmos, são gerados dois arquivos na pasta `data`:
 - `results.csv` - referente aos resultados de `src/main.py`.
 - `results_grid_search.csv` - referente aos resultados de `src/results_grid_search.csv`.
 
+# Estrutura do Repositório
+
+- `data` - pasta em que são salvos os resultados do experimento
+  - `results.csv` - referente aos resultados de `src/main.py`.
+  - `results_grid_search.csv` - referente aos resultados de `src/results_grid_search.csv`.
+  - `temps_extended.xlsx` - base de dados utilizada no experimento.
+- `notebooks` - pasta para notebook de pós-processamento das métricas
+  - `post_processing.ipynb` - notebook para tratamento dos resultados
+- `src` - pacote com o código fonte
+  - `main.py` - Execução do treinamento do RandomForest para um conjunto de parâmetros.
+  - `grid_search.py` - Execução do algoritmo de busca pelos melhores hiperparametros por meio da técnica de Grid Search.
+
+
+## Contribuição
+
+Contribuições são bem-vindas! Para sugestões, abra uma issue. Para mudanças significativas, abra um pull request.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo LICENSE para obter mais informações.
