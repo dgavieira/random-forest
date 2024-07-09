@@ -62,7 +62,8 @@ for bootstrap in param_grid['bootstrap']:
                     result_row = {'n_estimators': n_estimators, 'max_depth': max_depth,
                                   'min_samples_leaf': min_samples_leaf, 'min_samples_split': min_samples_split,
                                   'bootstrap': bootstrap, 'MAE': mae, 'MSE': mse}
-                    result_row.update({predictor: importance for predictor, importance in zip(predictors, importances)})
+                    result_row.update({f'{predictor}_importance': importance for predictor, importance in zip(predictors, importances)})
+                    result_row.update({f'{predictor}_value': X_test[predictor].values for predictor in predictors})
                     
                     results_list.append(result_row)
                     
@@ -73,8 +74,14 @@ for bootstrap in param_grid['bootstrap']:
 # Converter a lista de resultados em DataFrame
 results_df = pd.DataFrame(results_list)
 
+# Selecionar apenas as colunas relevantes (n_estimators, max_depth, min_samples_leaf, min_samples_split, bootstrap, MAE, MSE, importâncias das variáveis e valores das variáveis)
+columns_to_keep = ['n_estimators', 'max_depth', 'min_samples_leaf', 'min_samples_split', 'bootstrap', 'MAE', 'MSE'] + \
+                  [f'{predictor}_importance' for predictor in predictors] + \
+                  [f'{predictor}_value' for predictor in predictors]
+results_df = results_df[columns_to_keep]
+
 # Salvar os resultados em um arquivo CSV
-results_df.to_csv('results_grid_search.csv', index=False)
+results_df.to_csv('./data/results_grid_search.csv', index=False)
 
 # Fechar barra de progresso
 progress.close()
@@ -82,4 +89,3 @@ progress.close()
 # Exibir os resultados
 logging.info(f"Grid Search concluído. Resultados salvos em 'results_grid_search.csv'.")
 print(results_df)
-
