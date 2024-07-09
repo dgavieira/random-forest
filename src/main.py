@@ -19,7 +19,7 @@ y = data[target]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Lista de números de estimadores para testar
-n_estimators_list = [100]
+n_estimators_list = [200, 400, 600]
 
 # DataFrame para armazenar os resultados
 results_list = []
