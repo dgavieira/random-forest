@@ -43,4 +43,4 @@ for n in n_estimators_list:
 results_df = pd.DataFrame(results_list)
 
 print(results_df)
-results_df.to_csv('results.csv')
+results_df.to_csv('./data/results.csv')

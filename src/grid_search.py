@@ -25,7 +25,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random
 # Definir os parâmetros para Grid Search
 param_grid = {
     'bootstrap': [True, False],
-    'max_depth': [3, 5, 10, 20, 30, None],
+    'max_depth': [3, 4, 5,10,15,20,30,40,50,60],
     'min_samples_leaf': [1, 2, 4],
     'min_samples_split': [2, 5, 10],
     'n_estimators': [200, 400, 600]
@@ -62,8 +62,7 @@ for bootstrap in param_grid['bootstrap']:
                     result_row = {'n_estimators': n_estimators, 'max_depth': max_depth,
                                   'min_samples_leaf': min_samples_leaf, 'min_samples_split': min_samples_split,
                                   'bootstrap': bootstrap, 'MAE': mae, 'MSE': mse}
-                    result_row.update({f'{predictor}_importance': importance for predictor, importance in zip(predictors, importances)})
-                    result_row.update({f'{predictor}_value': X_test[predictor].values for predictor in predictors})
+                    result_row.update({predictor: importance for predictor, importance in zip(predictors, importances)})
                     
                     results_list.append(result_row)
                     
@@ -74,10 +73,8 @@ for bootstrap in param_grid['bootstrap']:
 # Converter a lista de resultados em DataFrame
 results_df = pd.DataFrame(results_list)
 
-# Selecionar apenas as colunas relevantes (n_estimators, max_depth, min_samples_leaf, min_samples_split, bootstrap, MAE, MSE, importâncias das variáveis e valores das variáveis)
-columns_to_keep = ['n_estimators', 'max_depth', 'min_samples_leaf', 'min_samples_split', 'bootstrap', 'MAE', 'MSE'] + \
-                  [f'{predictor}_importance' for predictor in predictors] + \
-                  [f'{predictor}_value' for predictor in predictors]
+# Selecionar apenas as colunas relevantes (n_estimators, max_depth, min_samples_leaf, min_samples_split, bootstrap, MAE, MSE, e as variáveis preditoras)
+columns_to_keep = ['n_estimators', 'max_depth', 'min_samples_leaf', 'min_samples_split', 'bootstrap', 'MAE', 'MSE'] + predictors
 results_df = results_df[columns_to_keep]
 
 # Salvar os resultados em um arquivo CSV
