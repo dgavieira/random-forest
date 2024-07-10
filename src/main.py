@@ -6,7 +6,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 # Carregar os dados do arquivo Excel
 data = pd.read_excel('./data/temps_extended.xlsx')
 
-print(data.head())
+print(data)
 
 # Selecionar as variáveis preditoras e a variável alvo
 predictors = ['year', 'ws_1', 'temp_2', 'temp_1', 'average']
